@@ -1,37 +1,20 @@
-Name:		texlive-ladder
-Version:	44394
-Release:	2
+%global tl_name ladder
+%global tl_revision 44394
+
+Name:		texlive-%{tl_name}
+Version:	%{tl_revision}
+Release:	1
 Summary:	Draw simple ladder diagrams using TikZ
 Group:		Publishing
-URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/ladder
+URL:		https://www.ctan.org/tex-archive/graphics/pgf/contrib/ladder
 License:	mit
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/ladder.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/ladder.doc.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/ladder.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/ladder.doc.r%{tl_revision}.tar.xz
 BuildArch:	noarch
-BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+BuildSystem:	texlive
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-This package permits the creation of simple ladder diagrams
-within LaTeX documents. Required packages are tikz, ifthen, and
-calc.
+This package permits the creation of simple ladder diagrams within LaTeX
+documents. Required packages are tikz, ifthen, and calc.
 
-%prep
-%autosetup -p1 -c -a1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%{_texmfdistdir}/tex/latex/ladder
-%doc %{_texmfdistdir}/doc/latex/ladder
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
